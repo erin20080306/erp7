@@ -23,13 +23,18 @@ document.getElementById("warehouse").addEventListener("change", function () {
 
   sheetSelect.innerHTML = '<option value="">載入中...</option>';
 
-  // 更新試算表下拉選單
+  // ✅ 更新試算表選單
   if (spreadsheetLinks[warehouse]) {
-    spreadsheetSelect.innerHTML = `<option value="${spreadsheetLinks[warehouse]}">查看 ${warehouse} 試算表</option>`;
+    spreadsheetSelect.innerHTML = "";
+    const option = document.createElement("option");
+    option.value = spreadsheetLinks[warehouse];
+    option.text = `查看 ${warehouse} 試算表`;
+    spreadsheetSelect.appendChild(option);
   } else {
     spreadsheetSelect.innerHTML = '<option value="">無對應試算表</option>';
   }
 
+  // ✅ 讀取該倉別的資料表
   const url = scriptURLs[warehouse];
   if (!url) {
     sheetSelect.innerHTML = '<option value="">無效倉別</option>';
@@ -77,9 +82,9 @@ document.getElementById("queryBtn").addEventListener("click", function () {
 });
 
 document.getElementById("openSheetBtn").addEventListener("click", function () {
-  const sheetURL = document.getElementById("spreadsheetLink").value;
-  if (sheetURL) {
-    window.open(sheetURL, "_blank");
+  const link = document.getElementById("spreadsheetLink").value;
+  if (link) {
+    window.open(link, "_blank");
   } else {
     alert("請先選擇倉別！");
   }
