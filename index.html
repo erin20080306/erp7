@@ -20,6 +20,7 @@
 <div class="title">宏盛酷澎出勤查詢系統</div>
 </div>
 
+<!-- ✅ 出勤查詢功能 -->
 <div class="box">
 <label for="warehouse">倉別</label>
 <select id="warehouse">
@@ -44,9 +45,12 @@
 <input type="text" id="phone" placeholder="例如：810105" />
 
 <button id="queryBtn">查詢</button>
+</div>
 
-<!-- ✅ 新增：開啟試算表功能 -->
-<label for="spreadsheetLink">開啟試算表</label>
+<!-- ✅ 試算表功能區（獨立出來） -->
+<div class="box">
+<h3>📊 開啟倉別對應的 Google 試算表</h3>
+<label for="spreadsheetLink">請選擇倉別</label>
 <select id="spreadsheetLink">
 <option value="">請先選擇倉別</option>
 </select>
