@@ -7,10 +7,28 @@ const scriptURLs = {
   "TAO7": "https://script.google.com/macros/s/AKfycbzGwJMTeYTBq_9ZgH_oGroVC_isk-qnCxFRE0DxmwzTabZXoezw4Gexa9WGp-94V1I/exec"
 };
 
+const spreadsheetLinks = {
+  "TAO1": "https://docs.google.com/spreadsheets/d/1_bhGQdx0YH7lsqPFEq5___6_Nwq_gbelJmIHv0bmaIE/edit",
+  "TAO3": "https://docs.google.com/spreadsheets/d/1cffI2jIVZA1uSiAyaLLXXgPzDByhy87xznaN85O7wEE/edit",
+  "TAO4": "https://docs.google.com/spreadsheets/d/1tVxQbV0298fn2OXWAF0UqZa7FLbypsatciatxs4YVTU/edit",
+  "TAO5": "https://docs.google.com/spreadsheets/d/1jzVXC6gt36hJtlUHoxtTzZLMNj4EtTsd4k8eNB1bdiA/edit",
+  "TAO6": "https://docs.google.com/spreadsheets/d/1wwPLSLjl2abfM_OMdTNI9PoiPKo3waCV_y0wmx2DxAE/edit",
+  "TAO7": "https://docs.google.com/spreadsheets/d/16nGCqRO8DYDm0PbXFbdt-fiEFZCXxXjlOWjKU67p4LY/edit"
+};
+
 document.getElementById("warehouse").addEventListener("change", function () {
   const warehouse = this.value;
   const sheetSelect = document.getElementById("sheet");
+  const spreadsheetSelect = document.getElementById("spreadsheetLink");
+
   sheetSelect.innerHTML = '<option value="">載入中...</option>';
+
+  // 更新試算表下拉選單
+  if (spreadsheetLinks[warehouse]) {
+    spreadsheetSelect.innerHTML = `<option value="${spreadsheetLinks[warehouse]}">查看 ${warehouse} 試算表</option>`;
+  } else {
+    spreadsheetSelect.innerHTML = '<option value="">無對應試算表</option>';
+  }
 
   const url = scriptURLs[warehouse];
   if (!url) {
@@ -58,3 +76,11 @@ document.getElementById("queryBtn").addEventListener("click", function () {
   window.open(url, "_blank");
 });
 
+document.getElementById("openSheetBtn").addEventListener("click", function () {
+  const sheetURL = document.getElementById("spreadsheetLink").value;
+  if (sheetURL) {
+    window.open(sheetURL, "_blank");
+  } else {
+    alert("請先選擇倉別！");
+  }
+});
