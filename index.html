@@ -1,3 +1,5 @@
+<script>
+// ✅ 各倉 Apps Script URL
 const scriptURLs = {
 "TAO1": "https://script.google.com/macros/s/AKfycbyMdIIg_BjzqOWvn4Mzfgo7hCOx8nYNry1Xg-EFpEo9Gg8ECD8x0NRPwFvQZj4agM6u/exec",
 "TAO3": "https://script.google.com/macros/s/AKfycbyCXqK6d8tu91LCfiK5Iwn175GwC0b8xS3to20v3lOvs41r9isiUCnr87KOKBcFI0Q/exec",
@@ -8,6 +10,7 @@ const scriptURLs = {
 "TAO10": "https://script.google.com/macros/s/AKfycbyZUMsx-sfV_F5KroTtBfWK8G9CPs-MGF6c-fj7gIj3hH0gJr8lKGPMycEgzB1_2vnk/exec"
 };
 
+// ✅ 各倉試算表連結
 const spreadsheetLinks = {
 "TAO1": "https://docs.google.com/spreadsheets/d/1_bhGQdx0YH7lsqPFEq5___6_Nwq_gbelJmIHv0bmaIE/edit",
 "TAO3": "https://docs.google.com/spreadsheets/d/1cffI2jIVZA1uSiAyaLLXXgPzDByhy87xznaN85O7wEE/edit",
@@ -18,11 +21,24 @@ const spreadsheetLinks = {
 "TAO10": "https://docs.google.com/spreadsheets/d/1y0w49xdFlHvcVtgtG8fq6zdrF26y8j7HMFh5ujzUyR4/edit"
 };
 
-// ✅ 出勤查詢用：當選擇倉別後更新資料表
-document.getElementById("warehouse").addEventListener("change", function () {
-const warehouse = this.value;
-const sheetSelect = document.getElementById("sheet");
+// ✅ 同步兩個下拉選單（避免選錯倉）
+const qSel = document.getElementById("warehouse"); // 查詢用
+const sSel = document.getElementById("spreadsheetWarehouse"); // 開表用
 
+if (qSel && sSel) {
+qSel.addEventListener("change", () => {
+if (sSel.value !== qSel.value) sSel.value = qSel.value;
+});
+sSel.addEventListener("change", () => {
+if (qSel.value !== sSel.value) qSel.value = sSel.value;
+qSel.dispatchEvent(new Event("change")); // 重新載入資料表
+});
+}
+
+// ✅ 出勤查詢用：當選擇倉別後更新資料表
+qSel.addEventListener("change", function () {
+const warehouse = this.value.trim();
+const sheetSelect = document.getElementById("sheet");
 sheetSelect.innerHTML = '<option value="">載入中...</option>';
 
 const url = scriptURLs[warehouse];
@@ -31,7 +47,7 @@ sheetSelect.innerHTML = '<option value="">無效倉別</option>';
 return;
 }
 
-fetch(`${url}?mode=getSheets`)
+fetch(`${url}?mode=getSheets&ts=${Date.now()}`)
 .then(res => {
 if (!res.ok) throw new Error("網路錯誤");
 return res.json();
@@ -53,28 +69,35 @@ sheetSelect.innerHTML = '<option value="">載入失敗</option>';
 
 // ✅ 查詢按鈕功能
 document.getElementById("queryBtn").addEventListener("click", function () {
-const warehouse = document.getElementById("warehouse").value;
+const warehouse = document.getElementById("warehouse").value.trim();
 const sheet = document.getElementById("sheet").value;
 const name = document.getElementById("name").value.trim();
-const phone = document.getElementById("phone").value.trim(); // 選填
+const phone = document.getElementById("phone").value.trim();
 
 if (!warehouse || !sheet || !name) {
 alert("請選擇倉別與資料表並輸入姓名！");
 return;
 }
 
-let url = `${scriptURLs[warehouse]}?sheet=${encodeURIComponent(sheet)}&name=${encodeURIComponent(name)}&from=glitch`;
-
-if (phone) {
-url += `&phone=${encodeURIComponent(phone)}`;
+const base = scriptURLs[warehouse];
+if (!base) {
+alert("找不到對應的倉別網址！");
+return;
 }
+
+let url = `${base}?sheet=${encodeURIComponent(sheet)}&name=${encodeURIComponent(name)}&from=glitch&ts=${Date.now()}`;
+if (phone) url += `&phone=${encodeURIComponent(phone)}`;
+
+// 偵錯輸出，確保真的是 TAO10
+console.log("[DEBUG] 倉別=", warehouse, " URL=", url);
+alert(`即將查詢：${warehouse}\nURL：${url}`);
 
 window.open(url, "_blank");
 });
 
-// ✅ 獨立開啟試算表（使用 spreadsheetWarehouse 下拉選單）
+// ✅ 開啟試算表
 document.getElementById("openSheetBtn").addEventListener("click", function () {
-const warehouse = document.getElementById("spreadsheetWarehouse").value;
+const warehouse = document.getElementById("spreadsheetWarehouse").value.trim();
 const link = spreadsheetLinks[warehouse];
 
 if (link) {
@@ -83,5 +106,4 @@ window.open(link, "_blank");
 alert("請選擇倉別！");
 }
 });
-
-
+</script>
