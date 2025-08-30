@@ -4,7 +4,8 @@ const scriptURLs = {
 "TAO4": "https://script.google.com/macros/s/AKfycbxOcL5pq_bO8mUn4ANSD2CupGQyz-0aqqHJepyui_0TjWQ7ije8dn9FB6FIxObu-Ro/exec",
 "TAO5": "https://script.google.com/macros/s/AKfycbx3PC0hwH4_OdUxC8zMgut_ZxA8KtERvu8IkH-xQLCK5-khbn7MMu6w3xLLmZxjuvOs/exec",
 "TAO6": "https://script.google.com/macros/s/AKfycbxGoISWpRxJ3Da2wYSFkPuM_PjHyidl1l-Pe2xWR0xDO1oku6M63wvRwOL4FsOOUgs/exec",
-"TAO7": "https://script.google.com/macros/s/AKfycbzGwJMTeYTBq_9ZgH_oGroVC_isk-qnCxFRE0DxmwzTabZXoezw4Gexa9WGp-94V1I/exec"
+"TAO7": "https://script.google.com/macros/s/AKfycbzGwJMTeYTBq_9ZgH_oGroVC_isk-qnCxFRE0DxmwzTabZXoezw4Gexa9WGp-94V1I/exec",
+"TAO10": "https://script.google.com/macros/s/AKfycbyZUMsx-sfV_F5KroTtBfWK8G9CPs-MGF6c-fj7gIj3hH0gJr8lKGPMycEgzB1_2vnk/exec"
 };
 
 const spreadsheetLinks = {
@@ -13,7 +14,8 @@ const spreadsheetLinks = {
 "TAO4": "https://docs.google.com/spreadsheets/d/1tVxQbV0298fn2OXWAF0UqZa7FLbypsatciatxs4YVTU/edit",
 "TAO5": "https://docs.google.com/spreadsheets/d/1jzVXC6gt36hJtlUHoxtTzZLMNj4EtTsd4k8eNB1bdiA/edit",
 "TAO6": "https://docs.google.com/spreadsheets/d/1wwPLSLjl2abfM_OMdTNI9PoiPKo3waCV_y0wmx2DxAE/edit",
-"TAO7": "https://docs.google.com/spreadsheets/d/16nGCqRO8DYDm0PbXFbdt-fiEFZCXxXjlOWjKU67p4LY/edit"
+"TAO7": "https://docs.google.com/spreadsheets/d/16nGCqRO8DYDm0PbXFbdt-fiEFZCXxXjlOWjKU67p4LY/edit",
+"TAO10": "https://docs.google.com/spreadsheets/d/1y0w49xdFlHvcVtgtG8fq6zdrF26y8j7HMFh5ujzUyR4/edit?gid=1411945299#gid=1411945299"
 };
 
 // ✅ 出勤查詢用：當選擇倉別後更新資料表
@@ -81,3 +83,4 @@ window.open(link, "_blank");
 alert("請選擇倉別！");
 }
 });
+
