@@ -15,7 +15,7 @@ const spreadsheetLinks = {
 "TAO5": "https://docs.google.com/spreadsheets/d/1jzVXC6gt36hJtlUHoxtTzZLMNj4EtTsd4k8eNB1bdiA/edit",
 "TAO6": "https://docs.google.com/spreadsheets/d/1wwPLSLjl2abfM_OMdTNI9PoiPKo3waCV_y0wmx2DxAE/edit",
 "TAO7": "https://docs.google.com/spreadsheets/d/16nGCqRO8DYDm0PbXFbdt-fiEFZCXxXjlOWjKU67p4LY/edit",
-TAO10": "docs.google.com/spreadsheets/d/1y0w49xdFlHvcVtgtG8fq6zdrF26y8j7HMFh5ujzUyR4/edit"
+"TAO10": "https://docs.google.com/spreadsheets/d/1y0w49xdFlHvcVtgtG8fq6zdrF26y8j7HMFh5ujzUyR4/edit"
 };
 
 // ✅ 出勤查詢用：當選擇倉別後更新資料表
@@ -83,6 +83,7 @@ window.open(link, "_blank");
 alert("請選擇倉別！");
 }
 });
+
 
 
 
